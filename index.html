@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanta College Tour Itinerary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .accommodation {
+            background: #e8f4f8;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid #d1e7f0;
+        }
+        
+        .accommodation h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #4ca1af;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card h3 i {
+            margin-right: 12px;
+        }
+        
+        .flight-info {
+            background: #fffaf3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 5px solid #ffa94d;
+        }
+        
+        .flight-info h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .flight-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .flight-detail {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .itinerary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            padding: 0 30px 30px;
+        }
+        
+        .day {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .day:hover {
+            transform: translateY(-5px);
+        }
+        
+        .day-header {
+            background: linear-gradient(135deg, #4ca1af 0%, #2c3e50 100%);
+            color: white;
+            padding: 20px;
+        }
+        
+        .day-content {
+            padding: 25px;
+        }
+        
+        .event {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .event:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .time {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .time i {
+            margin-right: 10px;
+        }
+        
+        .activity {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .activity i {
+            margin-right: 12px;
+            color: #4ca1af;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        
+        .notes {
+            background-color: #f8f9fa;
+            padding: 12px 18px;
+            border-left: 4px solid #4ca1af;
+            font-size: 0.95rem;
+            margin-top: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #4ca1af;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-top: 12px;
+            transition: background 0.3s;
+        }
+        
+        .map-btn:hover {
+            background: #2c3e50;
+        }
+        
+        .map-btn i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 1rem;
+            background: #f0f5f7;
+            border-top: 1px solid #e1e8ed;
+        }
+        
+        .print-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            padding: 14px 28px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+        
+        .print-btn:hover {
+            background: #4ca1af;
+        }
+        
+        .print-btn i {
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .summary-cards, .itinerary, .flight-details {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        .travel-note {
+            background: #fff4e6;
+            padding: 12px 18px;
+            border-left: 4px solid #ffa94d;
+            margin-top: 12px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+        
+        .distance-info {
+            background: #e6f7ff;
+            padding: 10px 15px;
+            border-left: 4px solid #1890ff;
+            margin-top: 10px;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        .weather-info {
+            background: #f6ffed;
+            padding: 10px 15px;
+            border-left: 4px solid #52c41a;
+            margin-top: 10px;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        .tab-container {
+            margin: 20px 0;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f0f2f5;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            background: #e6e9ef;
+            transition: background 0.3s;
+        }
+        
+        .tab.active {
+            background: #4ca1af;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Atlanta College Tour Itinerary</h1>
+            <p>September 22-26, 2025 | Arriving from Qatar QR755 at 3:55 PM</p>
+        </header>
+        
+        <div class="accommodation">
+            <h3><i class="fas fa-home"></i> Accommodation</h3>
+            <p>Staying at Amit Jariwala's house: 1246 Rosette Way, Marietta, GA 30062</p>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <div class="tab active" onclick="openTab('itinerary')">Itinerary</div>
+                <div class="tab" onclick="openTab('flights')">Flight Details</div>
+                <div class="tab" onclick="openTab('travel-info')">Travel Information</div>
+            </div>
+            
+            <div id="itinerary" class="tab-content active">
+                <div class="summary-cards">
+                    <div class="card">
+                        <h3><i class="fas fa-car"></i> Transportation</h3>
+                        <p>Rental car recommended for flexibility.</p>
+                        <p>Use Google Maps/Waze for real-time traffic updates.</p>
+                        <p>Avoid rush hours (7:00-10:00 AM and 4:00-7:00 PM).</p>
+                        <div class="travel-note">
+                            Note: Travel times from Marietta will be longer than from central Atlanta. Allow extra time for commuting.
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-map-marked-alt"></i> Key Attractions</h3>
+                        <p>College Tours: Emory, Georgia Tech, Spelman, GSU</p>
+                        <p>Sightseeing: Porsche Experience, World of Coca-Cola, Georgia Aquarium</p>
+                        <p>Cultural Sites: Martin Luther King Jr. National Historical Park</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-info-circle"></i> Important Notes</h3>
+                        <p>Oglethorpe University tour has been removed from the itinerary.</p>
+                        <p>Friday is kept free for rest and additional exploration.</p>
+                        <p>Confirm all college tours 24 hours in advance.</p>
+                    </div>
+                </div>
+                
+                <div class="itinerary">
+                    <!-- Day 1 -->
+                    <div class="day">
+                        <div class="day-header">
+                            <h2>Day 1: Monday, September 22</h2>
+                            <p>Arrival & Settling In</p>
+                        </div>
+                        <div class="day-content">
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 3:55 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-plane-arrival"></i>
+                                    <div>Arrive at Atlanta Airport (ATL) from Qatar QR755</div>
+                                </div>
+                                <div class="activity">
+                                    <i class="fas fa-passport"></i>
+                                    <div>Clear immigration and customs</div>
+                                </div>
+                                <div class="weather-info">
+                                    <i class="fas fa-temperature-high"></i> Expected weather: High 78°F (26°C), Low 62°F (17°C) - Partly cloudy
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 5:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-car-side"></i>
+                                    <div>Pick up rental car at airport</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 5:45 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-home"></i>
+                                    <div>Drive to brother's house in Marietta (approx. 35-45 mins with traffic)</div>
+                                </div>
+                                <div class="notes">
+                                    Address: 1246 Rosette Way, Marietta, GA 30062
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from airport: 24 miles | Typical drive time: 35-45 mins
+                                </div>
+                                <a href="https://goo.gl/maps/search/1246+Rosette+Way,+Marietta,+GA+30062" class="map-btn"><i class="fas fa-map-marker-alt"></i> View on Map</a>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 7:30 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-utensils"></i>
+                                    <div>Dinner with family</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> Evening</div>
+                                <div class="activity">
+                                    <i class="fas fa-bed"></i>
+                                    <div>Rest and adjust to time zone</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 2 -->
+                    <div class="day">
+                        <div class="day-header">
+                            <h2>Day 2: Tuesday, September 23</h2>
+                            <p>Emory University & Georgia Tech</p>
+                        </div>
+                        <div class="day-content">
+                            <div class="travel-note">
+                                <i class="fas fa-car"></i> Allow 45-60 minutes travel time from Marietta to Emory University
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 8:15 AM</div>
+                                <div class="activity">
+                                    <i class="fas fa-car"></i>
+                                    <div>Depart from Marietta to Emory University</div>
+                                </div>
+                                <div class="weather-info">
+                                    <i class="fas fa-temperature-high"></i> Expected weather: High 80°F (27°C), Low 64°F (18°C) - Mostly sunny
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 9:15 AM</div>
+                                <div class="activity">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>Arrive at Emory University</div>
+                                </div>
+                                <div class="notes">
+                                    Address: Oxford Road Building, 1390 Oxford Road NE, Atlanta, GA 30322
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from Marietta: 21 miles | Typical drive time: 40-50 mins
+                                </div>
+                                <a href="https://goo.gl/maps/5jz7VvX9wYrGcQ2a7" class="map-btn"><i class="fas fa-map-marker-alt"></i> View on Map</a>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 9:15 AM - 11:15 AM</div>
+                                <div class="activity">
+                                    <i class="fas fa-university"></i>
+                                    <div>Emory Information Session & Campus Tour</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 11:30 AM</div>
+                                <div class="activity">
+                                    <i class="fas fa-utensils"></i>
+                                    <div>Lunch near Emory or Georgia Tech</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 1:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>Arrive at Georgia Tech</div>
+                                </div>
+                                <div class="notes">
+                                    Address: John Lewis Student Center, 351 Ferst Dr NW, Atlanta, GA 30332
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from Emory: 6 miles | Typical drive time: 15-20 mins
+                                </div>
+                                <a href="https://goo.gl/maps/NFsCzV1a1J72" class="map-btn"><i class="fas fa-map-marker-alt"></i> View on Map</a>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 1:30 PM - 4:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-university"></i>
+                                    <div>Georgia Tech Info Session & Campus Tour</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 4:30 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-car"></i>
+                                    <div>Porsche Experience Center Tour</div>
+                                </div>
+                                <div class="notes">
+                                    Address: One Porsche Drive, Atlanta, GA 30354 (20 mins from Georgia Tech)
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from Georgia Tech: 12 miles | Typical drive time: 20-25 mins
+                                </div>
+                                <a href="https://goo.gl/maps/7c2ZzXrU8e2VzVEMA" class="map-btn"><i class="fas fa-map-marker-alt"></i> View on Map</a>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 7:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-utensils"></i>
+                                    <div>Dinner at Ponce City Market or nearby</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 8:30 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-car"></i>
+                                    <div>Return to Marietta (approx. 40-50 mins drive)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 3 -->
+                    <div class="day">
+                        <div class="day-header">
+                            <h2>Day 3: Wednesday, September 24</h2>
+                            <p>Spelman College & Cultural Sites</p>
+                        </div>
+                        <div class="day-content">
+                            <div class="travel-note">
+                                <i class="fas fa-car"></i> Allow 45-60 minutes travel time from Marietta to Spelman College
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 8:30 AM</div>
+                                <div class="activity">
+                                    <i class="fas fa-car"></i>
+                                    <div>Depart from Marietta to Spelman College</div>
+                                </div>
+                                <div class="weather-info">
+                                    <i class="fas fa-temperature-high"></i> Expected weather: High 82°F (28°C), Low 65°F (18°C) - Partly cloudy with chance of afternoon showers
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 9:30 AM</div>
+                                <div class="activity">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>Arrive at Spelman College</div>
+                                </div>
+                                <div class="notes">
+                                    GPS Address: 830 Westview Drive SW, Atlanta, GA 30314
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from Marietta: 18 miles | Typical drive time: 40-50 mins
+                                </div>
+                                <a href="https://goo.gl/maps/7K2Cw6q6Rg6QVn8T8" class="map-btn"><i class="fas fa-map-marker-alt"></i> View on Map</a>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 10:00 AM - 12:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-university"></i>
+                                    <div>Spelman College Campus Tour</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 12:30 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-utensils"></i>
+                                    <div>Lunch in West End area</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 2:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-landmark"></i>
+                                    <div>Martin Luther King Jr. National Historical Park</div>
+                                </div>
+                                <div class="notes">
+                                    Includes Dr. King's childhood home, Ebenezer Baptist Church, and memorial
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from Spelman: 3 miles | Typical drive time: 10 mins
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 4:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-monument"></i>
+                                    <div>Center for Civil and Human Rights</div>
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from MLK Park: 1 mile | Typical drive time: 5 mins
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 6:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-utensils"></i>
+                                    <div>Dinner in Downtown Atlanta</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 7:30 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-car"></i>
+                                    <div>Return to Marietta</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 4 -->
+                    <div class="day">
+                        <div class="day-header">
+                            <h2>Day 4: Thursday, September 25</h2>
+                            <p>Georgia State University & Coca-Cola</p>
+                        </div>
+                        <div class="day-content">
+                            <div class="travel-note">
+                                <i class="fas fa-car"></i> Allow 45-60 minutes travel time from Marietta to Georgia State University
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 8:45 AM</div>
+                                <div class="activity">
+                                    <i class="fas fa-car"></i>
+                                    <div>Depart from Marietta to Georgia State University</div>
+                                </div>
+                                <div class="weather-info">
+                                    <i class="fas fa-temperature-high"></i> Expected weather: High 79°F (26°C), Low 63°F (17°C) - Sunny
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 9:45 AM</div>
+                                <div class="activity">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>Arrive at Georgia State University</div>
+                                </div>
+                                <div class="notes">
+                                    Address: Centennial Hall, 100 Auburn Ave NE, Atlanta, GA 30303
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from Marietta: 20 miles | Typical drive time: 40-50 mins
+                                </div>
+                                <a href="https://goo.gl/maps/6d9Z6V4V4vVzV7zW9" class="map-btn"><i class="fas fa-map-marker-alt"></i> View on Map</a>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 10:00 AM - 12:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-university"></i>
+                                    <div>Georgia State University Visit</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 12:30 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-utensils"></i>
+                                    <div>Lunch in Downtown Atlanta</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 2:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-glass-cheers"></i>
+                                    <div>World of Coca-Cola</div>
+                                </div>
+                                <div class="notes">
+                                    Explore the history of Coca-Cola and taste beverages from around the world
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from GSU: 0.5 miles | Walking time: 10 mins
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 4:30 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-fish"></i>
+                                    <div>Georgia Aquarium (optional)</div>
+                                </div>
+                                <div class="notes">
+                                    One of the largest aquariums in the world, adjacent to Coca-Cola
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Right next to World of Coca-Cola
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 7:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-utensils"></i>
+                                    <div>Dinner at Hard Rock Cafe or Ted's Montana Grill</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 8:30 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-car"></i>
+                                    <div>Return to Marietta</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Day 5 -->
+                    <div class="day">
+                        <div class="day-header">
+                            <h2>Day 5: Friday, September 26</h2>
+                            <p>Free Day / Sightseeing</p>
+                        </div>
+                        <div class="day-content">
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> Morning</div>
+                                <div class="activity">
+                                    <i class="fas fa-bed"></i>
+                                    <div>Leisurely morning - rest and relax</div>
+                                </div>
+                                <div class="weather-info">
+                                    <i class="fas fa-temperature-high"></i> Expected weather: High 81°F (27°C), Low 64°F (18°C) - Mostly sunny
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 10:00 AM</div>
+                                <div class="activity">
+                                    <i class="fas fa-leaf"></i>
+                                    <div>Atlanta Botanical Garden or Kennesaw Mountain National Battlefield Park</div>
+                                </div>
+                                <div class="notes">
+                                    Kennesaw Mountain is closer to Marietta and offers hiking with historical significance
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Kennesaw Mountain distance: 8 miles | Typical drive time: 15 mins
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 1:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-utensils"></i>
+                                    <div>Lunch in Marietta Square</div>
+                                </div>
+                                <div class="notes">
+                                    Charming historic district with restaurants and shops
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Distance from Kennesaw Mountain: 6 miles | Typical drive time: 12 mins
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 3:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <div>Visit Town Center at Cobb or Cumberland Mall</div>
+                                </div>
+                                <div class="notes">
+                                    Both shopping centers are conveniently located near Marietta
+                                </div>
+                                <div class="distance-info">
+                                    <i class="fas fa-road"></i> Town Center distance: 5 miles | Typical drive time: 10 mins
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> 6:00 PM</div>
+                                <div class="activity">
+                                    <i class="fas fa-utensils"></i>
+                                    <div>Family dinner at home or at a local restaurant</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event">
+                                <div class="time"><i class="fas fa-clock"></i> Evening</div>
+                                <div class="activity">
+                                    <i class="fas fa-film"></i>
+                                    <div>Movie night or relax at home</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="flights" class="tab-content">
+                <div class="flight-info">
+                    <h4><i class="fas fa-plane"></i> Flight Details</h4>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <h5>QR755: DOH to ATL</h5>
+                            <p><i class="fas fa-calendar-alt"></i> Monday, September 22, 2025</p>
+                            <p><i class="fas fa-plane-departure"></i> Depart: 7:55 AM (Doha time)</p>
+                            <p><i class="fas fa-plane-arrival"></i> Arrive: 3:55 PM (Atlanta time)</p>
+                            <p><i class="fas fa-clock"></i> Duration: 15 hours</p>
+                            <p><i class="fas fa-chair"></i> Seats: 24A, 24B, 24C</p>
+                        </div>
+                        
+                        <div class="flight-detail">
+                            <h5>QR756: ATL to DOH</h5>
+                            <p><i class="fas fa-calendar-alt"></i> Monday, October 6, 2025</p>
+                            <p><i class="fas fa-plane-departure"></i> Depart: 7:30 PM (Atlanta time)</p>
+                            <p><i class="fas fa-plane-arrival"></i> Arrive: 3:50 PM (Doha time, next day)</p>
+                            <p><i class="fas fa-clock"></i> Duration: 13 hours 20 mins</p>
+                            <p><i class="fas fa-chair"></i> Seats: 26A, 26B, 26C</p>
+                        </div>
+                        
+                        <div class="flight-detail">
+                            <h5>QR945: SIN to DOH</h5>
+                            <p><i class="fas fa-calendar-alt"></i> Monday, September 22, 2025</p>
+                            <p><i class="fas fa-plane-departure"></i> Depart: 3:10 AM (Singapore time)</p>
+                            <p><i class="fas fa-plane-arrival"></i> Arrive: 5:35 AM (Doha time)</p>
+                            <p><i class="fas fa-clock"></i> Duration: 7 hours 25 mins</p>
+                            <p><i class="fas fa-chair"></i> Seats: 23A, 23B, 23C</p>
+                        </div>
+                        
+                        <div class="flight-detail">
+                            <h5>SQ421: MUM to SIN</h5>
+                            <p><i class="fas fa-calendar-alt"></i> Tuesday, September 16, 2025</p>
+                            <p><i class="fas fa-plane-departure"></i> Depart: 11:45 AM (Mumbai time)</p>
+                            <p><i class="fas fa-plane-arrival"></i> Arrive: 7:50 PM (Singapore time)</p>
+                            <p><i class="fas fa-clock"></i> Duration: 5 hours 35 mins</p>
+                            <p><i class="fas fa-chair"></i> Seat: 59A</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-users"></i> Travelers</h3>
+                    <p><strong>Mr. Shailendrakumar Shashikant Jariwala</strong></p>
+                    <p>Passport: T6706906 | Expiry: 26-Nov-27</p>
+                    
+                    <p><strong>Mr. Shashikant Mangaldas Jariwala</strong></p>
+                    <p>Passport: N8363049 | Expiry: 5-Apr-26</p>
+                    
+                    <p><strong>Miss Rajvi Shailendrakumar Jariwala</strong></p>
+                    <p>Passport: C5030320 | Expiry: 15-Dec-34</p>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-suitcase"></i> Baggage Information</h3>
+                    <p><strong>Qatar Airways:</strong> Economy - 2 pieces per person, 23kg each</p>
+                    <p><strong>Delta Airlines:</strong> Economy - 25kg total of 2 bags</p>
+                    <p><strong>Singapore Airlines:</strong> Check confirmation for baggage details</p>
+                </div>
+            </div>
+            
+            <div id="travel-info" class="tab-content">
+                <div class="card">
+                    <h3><i class="fas fa-map-marked-alt"></i> Distance Information</h3>
+                    <p>All distances calculated from 1246 Rosette Way, Marietta, GA 30062</p>
+                    <ul>
+                        <li>Hartsfield-Jackson Atlanta Airport (ATL): 24 miles (35-45 mins)</li>
+                        <li>Emory University: 21 miles (40-50 mins)</li>
+                        <li>Georgia Tech: 18 miles (35-45 mins)</li>
+                        <li>Spelman College: 18 miles (40-50 mins)</li>
+                        <li>Georgia State University: 20 miles (40-50 mins)</li>
+                        <li>Porsche Experience Center: 30 miles (45-60 mins)</li>
+                        <li>World of Coca-Cola: 21 miles (40-50 mins)</li>
+                    </ul>
+                    <div class="travel-note">
+                        <i class="fas fa-info-circle"></i> Note: Atlanta traffic can significantly impact travel times, especially during rush hours (7-10 AM and 4-7 PM). Always add a 15-20 minute buffer to estimated travel times.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-cloud-sun"></i> Weather Information</h3>
+                    <p>Late September in Atlanta typically has:</p>
+                    <ul>
+                        <li>Average High: 78-82°F (26-28°C)</li>
+                        <li>Average Low: 60-65°F (16-18°C)</li>
+                        <li>Moderate humidity</li>
+                        <li>Possibility of afternoon showers</li>
+                    </ul>
+                    <div class="travel-note">
+                        <i class="fas fa-info-circle"></i> Pack light layers, an umbrella, and comfortable walking shoes. Evenings can be cooler.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-car"></i> Transportation Tips</h3>
+                    <p><strong>Rental Car:</strong> Recommended for flexibility. Book in advance for better rates.</p>
+                    <p><strong>Parking:</strong> Most universities have visitor parking, but check ahead for requirements and fees.</p>
+                    <p><strong>Tolls:</strong> Some highways around Atlanta have toll lanes (express lanes). Consider getting a Peach Pass or be prepared to pay online.</p>
+                    <p><strong>Rideshare:</strong> Uber and Lyft are readily available throughout Atlanta.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; padding: 20px;">
+            <button class="print-btn" onclick="window.print()">
+                <i class="fas fa-print"></i> Print Itinerary
+            </button>
+        </div>
+        
+        <footer>
+            <p>Safe travels! Enjoy your college tour and exploration of Atlanta.</p>
+            <p>Remember to check tour confirmations and traffic conditions each day.</p>
+        </footer>
+    </div>
+
+    <script>
+        function openTab(tabName) {
+            var i, tabContent, tabs;
+            
+            // Hide all tab content
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tabs
+            tabs = document.getElementsByClassName("tab");
+            for (i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Show the specific tab content and add active class to the button
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
